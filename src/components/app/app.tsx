@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+
 import { AppRoute } from '../../const/const';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -12,44 +14,46 @@ import { AuthorizationStatus } from '../../const/const';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainPage />}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<LoginPage />}
-        />
-        <Route
-          path={AppRoute.Booking}
-          element={<BookingPage />}
-        />
-        <Route
-          path={AppRoute.Contacts}
-          element={<ContactsPage />}
-        />
-        <Route
-          path={AppRoute.MyQuests}
-          element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
-            >
-              <MyQuestsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Quest}
-          element={<QuestPage />}
-        />
-        <Route
-          path="*"
-          element={<NotFound />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Root}
+            element={<MainPage />}
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginPage />}
+          />
+          <Route
+            path={AppRoute.Booking}
+            element={<BookingPage />}
+          />
+          <Route
+            path={AppRoute.Contacts}
+            element={<ContactsPage />}
+          />
+          <Route
+            path={AppRoute.MyQuests}
+            element={
+              <PrivateRoute
+                authorizationStatus={AuthorizationStatus.NoAuth}
+              >
+                <MyQuestsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={`${AppRoute.Quest}:id`}
+            element={<QuestPage />}
+          />
+          <Route
+            path="*"
+            element={<NotFound />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
