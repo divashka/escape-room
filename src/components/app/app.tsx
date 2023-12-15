@@ -7,6 +7,8 @@ import NotFound from '../../pages/not-found-page/not-found-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import MyQuestsPage from '../../pages/my-quests/my-quests';
 import QuestPage from '../../pages/quest-page/quest-page';
+import PrivateRoute from '../private-route/private-route';
+import { AuthorizationStatus } from '../../const/const';
 
 function App(): JSX.Element {
   return (
@@ -30,7 +32,13 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.MyQuests}
-          element={<MyQuestsPage />}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <MyQuestsPage />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Quest}

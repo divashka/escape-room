@@ -7,3 +7,11 @@ export enum AppRoute {
   Quest = '/quest/:id',
   MyQuests= '/my-quests'
 }
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+
