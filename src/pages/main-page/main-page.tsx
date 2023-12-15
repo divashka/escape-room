@@ -1,8 +1,13 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import QuestCards from '../../components/quest-cards/quest-cards';
+import { useAppSelector } from '../../hooks';
+import { getQuests } from '../../store/quest-slice/selectors';
 
 function MainPage(): JSX.Element {
+
+  const quests = useAppSelector(getQuests);
+
   return (
     <div className="wrapper">
       <Header></Header>
@@ -20,7 +25,7 @@ function MainPage(): JSX.Element {
                 <legend className="visually-hidden">Тематика</legend>
                 <ul className="filter__list">
                   <li className="filter__item">
-                    <input type="radio" name="type" id="all" checked></input>
+                    <input type="radio" name="type" id="all" ></input>
                     <label className="filter__label" htmlFor="all">
                       <svg className="filter__icon" width="26" height="30" aria-hidden="true">
                         <use xlinkHref="#icon-all-quests"></use>
@@ -73,7 +78,7 @@ function MainPage(): JSX.Element {
                 <legend className="visually-hidden">Сложность</legend>
                 <ul className="filter__list">
                   <li className="filter__item">
-                    <input type="radio" name="level" id="any" checked></input>
+                    <input type="radio" name="level" id="any" ></input>
                     <label className="filter__label" htmlFor="any"><span className="filter__label-text">Любой</span>
                     </label>
                   </li>
@@ -97,7 +102,7 @@ function MainPage(): JSX.Element {
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestCards></QuestCards>
+          <QuestCards quests={quests}></QuestCards>
         </div>
       </main>
 
