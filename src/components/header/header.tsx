@@ -13,10 +13,10 @@ function Header(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <a className="link not-disabled active" href="index.html">Квесты</a>
+              <Link className="link not-disabled active" to={AppRoute.Root}>Квесты</Link>
             </li>
             <li className="main-nav__item">
-              <a className="link" href="contacts.html">Контакты</a>
+              <Link className="link" to={AppRoute.Contacts}>Контакты</Link>
             </li>
           </ul>
         </nav>
