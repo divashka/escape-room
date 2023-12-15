@@ -4,7 +4,7 @@ export enum AppRoute {
   NotFound = '/not-found',
   Booking = '/booking',
   Contacts = '/contacts',
-  Quest = '/quest/:id',
+  Quest = '/quest/',
   MyQuests= '/my-quests'
 }
 
@@ -14,4 +14,15 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Quest = '/quest',
+  Reservation = '/reservation',
+  Login = '/login'
+}
 
+export enum SliceNameSpace {
+  Quest = 'QUEST',
+  Booking = 'BOOKING',
+  Reservation = 'RESERVATION',
+  User = 'USER'
+}
