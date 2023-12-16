@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from '../const/const';
 import { store } from '../store/store';
 
 export type Quest = {
@@ -26,6 +27,11 @@ export type QuestSlice = {
   isOneQuestLoading: boolean;
 };
 
+export type UserSlice = {
+  authorizationStatus: AuthorizationStatus;
+  user: AuthData;
+};
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
@@ -36,3 +42,12 @@ export type Location = {
   zoom: number;
 }
 
+export type AuthData = {
+  email: string;
+  token: string;
+}
+
+export type UserData = {
+  email: string;
+  password: string;
+}

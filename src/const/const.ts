@@ -17,7 +17,8 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Quest = '/quest',
   Reservation = '/reservation',
-  Login = '/login'
+  Login = '/login',
+  Logout = '/logout'
 }
 
 export enum SliceNameSpace {

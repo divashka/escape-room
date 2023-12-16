@@ -4,7 +4,17 @@ import { Provider } from 'react-redux';
 
 import App from './components/app/app';
 import { store } from './store/store';
-import { fetchQuestsAction } from './store/api-actions';
+import { fetchQuestsAction, checkAuthAction } from './store/api-actions';
+import { getToken } from './services/token';
+import { changeAuthorizationStatus } from './store/user-slice/user-slice';
+
+const token = getToken();
+
+if (token !== '') {
+  store.dispatch(checkAuthAction());
+} else {
+  store.dispatch(changeAuthorizationStatus());
+}
 
 store.dispatch(fetchQuestsAction());
 

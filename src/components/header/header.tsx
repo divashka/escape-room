@@ -1,7 +1,23 @@
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { checkAuthorizationStatus } from '../../utils/utils';
+import { getAutorisationStatus } from '../../store/user-slice/selectors';
+import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  const authorizationStatus = useAppSelector(getAutorisationStatus);
+
+  const isLogged = checkAuthorizationStatus(authorizationStatus);
+
+  const handleLogoutClick = useCallback(() => {
+    dispatch(logoutAction());
+  }, [dispatch]);
+
   return (
     <header className="header">
       <div className="container container--size-l">
@@ -18,9 +34,17 @@ function Header(): JSX.Element {
             <li className="main-nav__item">
               <Link className="link" to={AppRoute.Contacts}>Контакты</Link>
             </li>
+            {
+              isLogged &&
+              <li className="main-nav__item">
+                <Link className="link" to={AppRoute.MyQuests}>Мои бронирования</Link>
+              </li>
+            }
           </ul>
         </nav>
         <div className="header__side-nav">
+          {!isLogged && <Link className="btn header__side-item header__login-btn" to={AppRoute.Login}>Вход</Link>}
+          {isLogged && <Link className="btn btn--accent header__side-item" to={''} onClick={handleLogoutClick}>Выйти</Link>}
           <a className="link header__side-item header__phone-link" href="tel:88003335599">8 (000) 111-11-11</a>
         </div>
       </div>
