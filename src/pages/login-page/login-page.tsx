@@ -48,7 +48,7 @@ function LoginPage(): JSX.Element {
 
   function handlePasswordChange(evt: ChangeEvent<HTMLInputElement>) {
     setPassword(evt.target.value);
-    const regexp = /(?=.*[0-9])(?=.*[a-z])[0-9a-z]{3,15}/;
+    const regexp = /(?=^.{3,15}$)(?=.*[a-z])[0-9a-z]{3,}/;
     if (!regexp.test(String(evt.target.value).toLocaleLowerCase())) {
       setPasswordError('Пароль не корректен');
     } else {
