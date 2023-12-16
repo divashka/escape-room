@@ -1,5 +1,6 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import Map from '../../components/map/map';
 
 function ContactsPage(): JSX.Element {
   return (
@@ -49,11 +50,7 @@ function ContactsPage(): JSX.Element {
                 </dd>
               </div>
             </dl>
-            <div className="contacts__map">
-              <div className="map">
-                <div className="map__container"></div>
-              </div>
-            </div>
+            <Map></Map>
           </div>
         </div>
       </main>
