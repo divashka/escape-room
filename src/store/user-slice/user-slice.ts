@@ -25,6 +25,7 @@ export const userReducer = createSlice({
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
         state.user = action.payload;
       })
       .addCase(logoutAction.fulfilled, (state) => {

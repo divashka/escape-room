@@ -6,7 +6,7 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+function PrivateRouteForMyQuests(props: PrivateRouteProps): JSX.Element {
   const { authorizationStatus, children } = props;
 
   return (
@@ -16,4 +16,4 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   );
 }
 
-export default PrivateRoute;
+export default PrivateRouteForMyQuests;

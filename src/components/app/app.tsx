@@ -9,10 +9,15 @@ import NotFound from '../../pages/not-found-page/not-found-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import MyQuestsPage from '../../pages/my-quests/my-quests';
 import QuestPage from '../../pages/quest-page/quest-page';
-import PrivateRoute from '../private-route/private-route';
-import { AuthorizationStatus } from '../../const/const';
+import PrivateRouteForMyQuests from '../private-route-my-quests/private-route-my-quests';
+import PrivateRouteForLogin from '../private-route-login/private-route-login';
+import { getAutorisationStatus } from '../../store/user-slice/selectors';
+import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
+
+  const authorizationStatus = useAppSelector(getAutorisationStatus);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -23,7 +28,13 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <PrivateRouteForLogin
+                authorizationStatus={authorizationStatus}
+              >
+                <LoginPage />
+              </PrivateRouteForLogin>
+            }
           />
           <Route
             path={AppRoute.Booking}
@@ -36,11 +47,11 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyQuests}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+              <PrivateRouteForMyQuests
+                authorizationStatus={authorizationStatus}
               >
                 <MyQuestsPage />
-              </PrivateRoute>
+              </PrivateRouteForMyQuests>
             }
           />
           <Route
