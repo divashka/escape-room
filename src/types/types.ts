@@ -32,6 +32,35 @@ export type UserSlice = {
   user: AuthData;
 };
 
+export type ReservationSlice = {
+  bookingQuests: BookingQuest[];
+};
+
+export type BookingQuest = {
+  date: BookingDate;
+  time: string;
+  contactPerson: string;
+  phone: string;
+  withChildren: boolean;
+  peopleCount: number;
+  id: string;
+  location: {
+    address: string;
+    coords: [number, number];
+  };
+  quest: {
+    id: string;
+    title: string;
+    previewImg: string;
+    previewImgWebp: string;
+    level: LevelQuest;
+    type: TypeQuest;
+    peopleMinMax: [number, number];
+  };
+}
+
+export type BookingDate = 'today' | 'tomorrow';
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

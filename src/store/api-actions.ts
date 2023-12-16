@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../const/const';
-import { Quest, QuestFull, State, AppDispatch, UserData, AuthData } from '../types/types';
+import { Quest, QuestFull, State, AppDispatch, UserData, AuthData, BookingQuest } from '../types/types';
 import { saveToken, dropToken } from '../services/token';
 
 export const fetchQuestsAction = createAsyncThunk<Quest[], undefined, {
@@ -61,5 +61,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+  },
+);
+
+export const fetchBookingQuests = createAsyncThunk<BookingQuest[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<BookingQuest[]>(APIRoute.Login);
+    return data;
   },
 );
