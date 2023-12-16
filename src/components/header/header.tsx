@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { checkAuthorizationStatus } from '../../utils/utils';
@@ -29,15 +29,15 @@ function Header(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="link not-disabled active" to={AppRoute.Root}>Квесты</Link>
+              <NavLink className="link not-disabled" to={AppRoute.Root}>Квесты</NavLink>
             </li>
             <li className="main-nav__item">
-              <Link className="link" to={AppRoute.Contacts}>Контакты</Link>
+              <NavLink className="link" to={AppRoute.Contacts}>Контакты</NavLink>
             </li>
             {
               isLogged &&
               <li className="main-nav__item">
-                <Link className="link" to={AppRoute.MyQuests}>Мои бронирования</Link>
+                <NavLink className="link" to={AppRoute.MyQuests}>Мои бронирования</NavLink>
               </li>
             }
           </ul>
