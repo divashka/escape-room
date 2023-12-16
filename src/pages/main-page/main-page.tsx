@@ -6,6 +6,7 @@ import { useAppSelector } from '../../hooks';
 import { getQuests } from '../../store/quest-slice/selectors';
 import { FilterSubjectItems, FilterLevelLabels, FilterSubjectDefault, FilterLevelDefault } from '../../const/const';
 import { TypeQuest, LevelQuest } from '../../types/types';
+import NotFilteredQuests from '../../components/not-filtered-quests/not-filtered-quests';
 
 function MainPage(): JSX.Element {
 
@@ -122,7 +123,10 @@ function MainPage(): JSX.Element {
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestCards quests={filteredLevelQuests}></QuestCards>
+          {filteredLevelQuests.length === 0
+            ? <NotFilteredQuests></NotFilteredQuests>
+            :
+            <QuestCards quests={filteredLevelQuests}></QuestCards>}
         </div>
       </main>
 
