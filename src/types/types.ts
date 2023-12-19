@@ -45,10 +45,7 @@ export type BookingQuest = {
   withChildren: boolean;
   peopleCount: number;
   id: string;
-  location: {
-    address: string;
-    coords: [number, number];
-  };
+  location: Location;
   quest: {
     id: string;
     title: string;
@@ -67,9 +64,8 @@ export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  address: string;
+  coords: [number, number];
 }
 
 export type AuthData = {

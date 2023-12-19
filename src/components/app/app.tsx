@@ -30,7 +30,7 @@ function App(): JSX.Element {
             element={<LoginPage />}
           />
           <Route
-            path={AppRoute.Booking}
+            path={`${AppRoute.Quest}:id/booking`}
             element={<BookingPage />}
           />
           <Route

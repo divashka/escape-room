@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { memo } from 'react';
+import { Location } from '../../types/types';
 
 const URL_MARKER_DEFAULT = '../markup/img/svg/pin-default.svg';
 
@@ -13,13 +13,11 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [12, 40]
 });
 
-const location = {
-  latitude: 59.968403,
-  longitude: 30.316425,
-  zoom: 15
-};
+type MapProps = {
+  location: Location;
+}
 
-function MapComponent(): JSX.Element {
+function Map({location}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
 
@@ -30,8 +28,8 @@ function MapComponent(): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
 
       const marker = new Marker({
-        lat: location.latitude,
-        lng: location.longitude
+        lat: location.coords[0],
+        lng: location.coords[1]
       });
 
       marker
@@ -42,7 +40,7 @@ function MapComponent(): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map]);
+  }, [map, location.coords]);
 
   return (
     <div className="contacts__map">
@@ -52,7 +50,5 @@ function MapComponent(): JSX.Element {
     </div>
   );
 }
-
-const Map = memo(MapComponent);
 
 export default Map;

@@ -1,7 +1,50 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOneQuestAction } from '../../store/api-actions';
+import { dropQuest } from '../../store/quest-slice/quest-slice';
+import { getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
+import NotFound from '../not-found-page/not-found-page';
+import LoadingPage from '../loading-page/loading-page';
+import Map from '../../components/map/map';
 
 function BookingPage(): JSX.Element {
+
+  const { id } = useParams();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    dispatch(fetchOneQuestAction(id));
+
+    return () => {
+      dispatch(dropQuest());
+    };
+  }, [dispatch, id]);
+
+  const quest = useAppSelector(getOneQuest);
+  const isLoading = useAppSelector(getStatusOneQuestLoading);
+
+  if (!quest && !isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (!quest && isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (!quest || !id) {
+    return <NotFound />;
+  }
+
+  const { title } = quest;
+
   return (
     <div className="wrapper">
       <Header></Header>
@@ -23,13 +66,10 @@ function BookingPage(): JSX.Element {
           <div className="page-content__title-wrapper">
             <h1 className="subtitle subtitle--size-l page-content__subtitle">Бронирование квеста
             </h1>
-            <p className="title title--size-m title--uppercase page-content__title">Маньяк</p>
+            <p className="title title--size-m title--uppercase page-content__title">{title}</p>
           </div>
           <div className="page-content__item">
             <div className="booking-map">
-              <div className="map">
-                <div className="map__container"></div>
-              </div>
               <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
             </div>
           </div>
@@ -44,7 +84,7 @@ function BookingPage(): JSX.Element {
                     <span className="custom-radio__label">9:45</span>
                   </label>
                   <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today15h00m" name="date" checked required value="today15h00m"></input><span className="custom-radio__label">15:00</span>
+                    <input type="radio" id="today15h00m" name="date" required value="today15h00m"></input><span className="custom-radio__label">15:00</span>
                   </label>
                   <label className="custom-radio booking-form__date">
                     <input type="radio" id="today17h30m" name="date" required value="today17h30m" /><span className="custom-radio__label">17:30</span>
@@ -106,7 +146,7 @@ function BookingPage(): JSX.Element {
                 <input type="number" id="person" name="person" placeholder="Количество участников" required />
               </div>
               <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
-                <input type="checkbox" id="children" name="children" checked></input>
+                <input type="checkbox" id="children" name="children"></input>
                 <span className="custom-checkbox__icon">
                   <svg width="20" height="17" aria-hidden="true">
                     <use xlinkHref="#icon-tick"></use>

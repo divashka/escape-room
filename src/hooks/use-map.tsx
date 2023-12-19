@@ -15,10 +15,10 @@ function useMap({ mapRef, location }: useMapProps): Map | null {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
-          lat: location.latitude,
-          lng: location.longitude
+          lat: location.coords[0],
+          lng: location.coords[1]
         },
-        zoom: location.zoom
+        zoom: 15
       });
 
       const layer = new TileLayer(

@@ -9,7 +9,7 @@ import { dropQuest } from '../../store/quest-slice/quest-slice';
 import { getErrorOneQuestStatus, getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
-import '../../../markup/css/style.min.css';
+import '../../../public/css/style.min.css';
 import { AppRoute } from '../../const/const';
 import { checkAuthorizationStatus } from '../../utils/utils';
 import { getAutorisationStatus } from '../../store/user-slice/selectors';
@@ -43,7 +43,11 @@ function QuestPage(): JSX.Element {
     return <NotFound />;
   }
 
-  if (isLoading) {
+  if (!quest && !isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (!quest && isLoading) {
     return <LoadingPage />;
   }
 
