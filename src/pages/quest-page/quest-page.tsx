@@ -6,9 +6,10 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { dropQuest } from '../../store/quest-slice/quest-slice';
-import { getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
+import { getErrorOneQuestStatus, getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
+import '../../../markup/css/style.min.css';
 
 function QuestPage(): JSX.Element {
 
@@ -17,6 +18,7 @@ function QuestPage(): JSX.Element {
 
   const quest = useAppSelector(getOneQuest);
   const isLoading = useAppSelector(getStatusOneQuestLoading);
+  const hasError = useAppSelector(getErrorOneQuestStatus);
 
   useEffect(() => {
     if (!id) {
@@ -29,6 +31,10 @@ function QuestPage(): JSX.Element {
       dispatch(dropQuest());
     };
   }, [dispatch, id]);
+
+  if (hasError) {
+    return <NotFound />;
+  }
 
   if (isLoading) {
     return <LoadingPage />;

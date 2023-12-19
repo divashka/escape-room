@@ -7,6 +7,7 @@ const initialState: QuestSlice = {
   quests: [],
   oneQuest: null,
   isOneQuestLoading: false,
+  hasErrorOneQuest: false
 };
 
 export const questReducer = createSlice({
@@ -31,6 +32,7 @@ export const questReducer = createSlice({
       })
       .addCase(fetchOneQuestAction.rejected, (state) => {
         state.isOneQuestLoading = false;
+        state.hasErrorOneQuest = true;
       });
   }
 });

@@ -25,6 +25,7 @@ export type QuestSlice = {
   quests: Quest[];
   oneQuest: QuestFull | null;
   isOneQuestLoading: boolean;
+  hasErrorOneQuest: boolean;
 };
 
 export type UserSlice = {
