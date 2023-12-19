@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { fetchOneQuestAction } from '../../store/api-actions';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
@@ -10,11 +10,18 @@ import { getErrorOneQuestStatus, getOneQuest, getStatusOneQuestLoading } from '.
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import '../../../markup/css/style.min.css';
+import { AppRoute } from '../../const/const';
+import { checkAuthorizationStatus } from '../../utils/utils';
+import { getAutorisationStatus } from '../../store/user-slice/selectors';
 
 function QuestPage(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
+
+  const authorizationStatus = useAppSelector(getAutorisationStatus);
+
+  const isLogged = checkAuthorizationStatus(authorizationStatus);
 
   const quest = useAppSelector(getOneQuest);
   const isLoading = useAppSelector(getStatusOneQuestLoading);
@@ -40,11 +47,17 @@ function QuestPage(): JSX.Element {
     return <LoadingPage />;
   }
 
-  if (!quest) {
+  if (!quest || !id) {
     return <NotFound />;
   }
 
   const { title, type, level, peopleMinMax, description, coverImg, coverImgWebp } = quest;
+
+  let bookingLink = `${AppRoute.Login}`;
+
+  if (isLogged) {
+    bookingLink = `${AppRoute.Quest}${id}/booking`;
+  }
 
   return (
     <div className="wrapper">
@@ -82,7 +95,7 @@ function QuestPage(): JSX.Element {
             </ul>
             <p className="quest-page__description">{description}
             </p>
-            <a className="btn btn--accent btn--cta quest-page__btn" href="booking.html">Забронировать</a>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={bookingLink}>Забронировать</Link>
           </div>
         </div>
       </main>
