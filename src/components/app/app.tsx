@@ -9,8 +9,7 @@ import NotFound from '../../pages/not-found-page/not-found-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import MyQuestsPage from '../../pages/my-quests/my-quests';
 import QuestPage from '../../pages/quest-page/quest-page';
-import PrivateRouteForMyQuests from '../private-route-my-quests/private-route-my-quests';
-import PrivateRouteForLogin from '../private-route-login/private-route-login';
+import PrivateRoute from '../private-route/private-route';
 import { getAutorisationStatus } from '../../store/user-slice/selectors';
 import { useAppSelector } from '../../hooks';
 
@@ -28,13 +27,7 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={
-              <PrivateRouteForLogin
-                authorizationStatus={authorizationStatus}
-              >
-                <LoginPage />
-              </PrivateRouteForLogin>
-            }
+            element={<LoginPage />}
           />
           <Route
             path={AppRoute.Booking}
@@ -47,11 +40,11 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyQuests}
             element={
-              <PrivateRouteForMyQuests
+              <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
                 <MyQuestsPage />
-              </PrivateRouteForMyQuests>
+              </PrivateRoute>
             }
           />
           <Route

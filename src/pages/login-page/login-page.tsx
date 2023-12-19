@@ -1,10 +1,18 @@
 import { FormEvent, useState, FocusEvent, ChangeEvent, useEffect, } from 'react';
+import { AppRoute } from '../../const/const';
+import { Navigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkAuthorizationStatus } from '../../utils/utils';
+import { getAutorisationStatus } from '../../store/user-slice/selectors';
 
 function LoginPage(): JSX.Element {
+
+  const authorizationStatus = useAppSelector(getAutorisationStatus);
+
+  const isLogged = checkAuthorizationStatus(authorizationStatus);
 
   const dispatch = useAppDispatch();
 
@@ -24,6 +32,9 @@ function LoginPage(): JSX.Element {
     }
   }, [emailError, passwordError]);
 
+  if (isLogged) {
+    return <Navigate to={AppRoute.Root}></Navigate>;
+  }
 
   function handleBlur(evt: FocusEvent<HTMLInputElement>) {
     switch (evt.target.name) {
