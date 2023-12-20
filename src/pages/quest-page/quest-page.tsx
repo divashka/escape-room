@@ -75,8 +75,11 @@ function QuestPage(): JSX.Element {
             >
             </source>
             <img
-              src={coverImg} srcSet={`${coverImg} 2x`} width="1366"
+              src={coverImg}
+              srcSet={`${coverImg} 2x`}
+              width="1366"
               height="768"
+              alt={title}
             />
           </picture>
         </div>

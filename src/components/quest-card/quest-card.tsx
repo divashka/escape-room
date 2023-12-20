@@ -21,7 +21,7 @@ function QuestCard({ quest }: QuestCardProps): JSX.Element {
           </source>
           <img
             src={previewImg} srcSet={`${previewImg} 2x`} width="344"
-            height="232" alt="Мужчина в клетке в подземелье."
+            height="232" alt={title}
           />
         </picture>
       </div>

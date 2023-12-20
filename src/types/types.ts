@@ -37,6 +37,32 @@ export type ReservationSlice = {
   bookingQuests: BookingQuest[];
 };
 
+export type BookingSlice = {
+  infoBookingQuest: infoBookingQuest[];
+};
+
+export type infoBookingQuest = {
+  id: string;
+  location: {
+    address: string;
+    coords: [number, number];
+  };
+  slots: {
+    today: [
+      {
+        time: string;
+        isAvailable: boolean;
+      }
+    ];
+    tomorrow: [
+      {
+        time: string;
+        isAvailable: boolean;
+      }
+    ];
+  };
+}
+
 export type BookingQuest = {
   date: BookingDate;
   time: string;

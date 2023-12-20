@@ -3,12 +3,13 @@ import Footer from '../../components/footer/footer';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOneQuestAction } from '../../store/api-actions';
+import { fetchOneQuestAction, fetchInfoBookingQuest } from '../../store/api-actions';
 import { dropQuest } from '../../store/quest-slice/quest-slice';
 import { getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import Map from '../../components/map/map';
+import { getInfoBookingQuest } from '../../store/booking-slice/selectors';
 
 function BookingPage(): JSX.Element {
 
@@ -22,6 +23,7 @@ function BookingPage(): JSX.Element {
     }
 
     dispatch(fetchOneQuestAction(id));
+    dispatch(fetchInfoBookingQuest(id));
 
     return () => {
       dispatch(dropQuest());
@@ -30,6 +32,18 @@ function BookingPage(): JSX.Element {
 
   const quest = useAppSelector(getOneQuest);
   const isLoading = useAppSelector(getStatusOneQuestLoading);
+  const infoBookingQuest = useAppSelector(getInfoBookingQuest);
+
+  if (infoBookingQuest.length === 0) {
+    return <LoadingPage />;
+  }
+
+  const { location, slots } = infoBookingQuest[0];
+
+  const { today, tomorrow } = slots;
+
+  const renderedToday = today.slice(0,5);
+  const renderedTommorow = tomorrow.slice(0,5);
 
   if (!quest && !isLoading) {
     return <LoadingPage />;
@@ -43,7 +57,7 @@ function BookingPage(): JSX.Element {
     return <NotFound />;
   }
 
-  const { title } = quest;
+  const { title, coverImg, coverImgWebp } = quest;
 
   return (
     <div className="wrapper">
@@ -53,12 +67,15 @@ function BookingPage(): JSX.Element {
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
             <source type="image/webp"
-              srcSet="img/content/maniac/maniac-bg-size-m.webp, img/content/maniac/maniac-bg-size-m@2x.webp 2x"
+              srcSet={`${coverImgWebp}, ${coverImgWebp} 2x`}
             >
             </source>
             <img
-              src="img/content/maniac/maniac-bg-size-m.jpg" srcSet="img/content/maniac/maniac-bg-size-m@2x.jpg 2x"
-              width="1366" height="1959" alt=""
+              src={coverImg}
+              srcSet={`${coverImg} 2x`}
+              width="1366"
+              height="1959"
+              alt=""
             />
           </picture>
         </div>
@@ -70,7 +87,8 @@ function BookingPage(): JSX.Element {
           </div>
           <div className="page-content__item">
             <div className="booking-map">
-              <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
+              <Map location={location}></Map>
+              <p className="booking-map__address">Вы&nbsp;выбрали: {location.address}</p>
             </div>
           </div>
           <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
@@ -79,53 +97,26 @@ function BookingPage(): JSX.Element {
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Сегодня</legend>
                 <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today9h45m" name="date" required value="today9h45m" />
-                    <span className="custom-radio__label">9:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today15h00m" name="date" required value="today15h00m"></input><span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today17h30m" name="date" required value="today17h30m" /><span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today19h30m" name="date" required value="today19h30m"
-                      disabled
-                    />
-                    <span className="custom-radio__label">19:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today21h30m" name="date" required value="today21h30m" /><span className="custom-radio__label">21:30</span>
-                  </label>
+                  {renderedToday.map((slot) => (
+                    <label key={slot.time} className="custom-radio booking-form__date">
+                      <input type="radio" id={`today${slot.time}`} name="date" required value={`today${slot.time}`} disabled={slot.isAvailable === true}/>
+                      <span className="custom-radio__label">{slot.time}</span>
+                    </label>
+                  ))}
                 </div>
               </fieldset>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Завтра</legend>
                 <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow11h00m" name="date" required value="tomorrow11h00m" />
-                    <span
-                      className="custom-radio__label"
-                    >11:00
-                    </span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow15h00m" name="date" required value="tomorrow15h00m"
-                      disabled
-                    /><span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow17h30m" name="date" required value="tomorrow17h30m"
-                      disabled
-                    /><span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow19h45m" name="date" required value="tomorrow19h45m" /><span className="custom-radio__label">19:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow21h30m" name="date" required value="tomorrow21h30m" /><span className="custom-radio__label">21:30</span>
-                  </label>
+                  {renderedTommorow.map((slot)=> (
+                    <label key={slot.time} className="custom-radio booking-form__date">
+                      <input type="radio" id={`tomorrow${slot.time}`} name="date" required value={`tomorrow${slot.time}`} disabled={slot.isAvailable === true} />
+                      <span
+                        className="custom-radio__label"
+                      >{slot.time}
+                      </span>
+                    </label>
+                  ))}
                 </div>
               </fieldset>
             </fieldset>
@@ -172,10 +163,10 @@ function BookingPage(): JSX.Element {
             </label>
           </form>
         </div>
-      </main>
+      </main >
 
       <Footer></Footer>
-    </div>
+    </div >
   );
 }
 
