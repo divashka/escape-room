@@ -7,4 +7,8 @@ export const getOneQuest = (state: State) => state[SliceNameSpace.Quest].oneQues
 
 export const getStatusOneQuestLoading = (state: State) => state[SliceNameSpace.Quest].isOneQuestLoading;
 
+export const getStatusQuestsLoading = (state: State) => state[SliceNameSpace.Quest].isQuestsLoading;
+
 export const getErrorOneQuestStatus = (state: State) => state[SliceNameSpace.Quest].hasErrorOneQuest;
+
+export const getErrorQuestsStatus = (state: State) => state[SliceNameSpace.Quest].hasErrorQuests;

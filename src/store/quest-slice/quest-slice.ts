@@ -7,7 +7,9 @@ const initialState: QuestSlice = {
   quests: [],
   oneQuest: null,
   isOneQuestLoading: false,
-  hasErrorOneQuest: false
+  isQuestsLoading: false,
+  hasErrorOneQuest: false,
+  hasErrorQuests: false
 };
 
 export const questReducer = createSlice({
@@ -22,6 +24,15 @@ export const questReducer = createSlice({
     builder
       .addCase(fetchQuestsAction.fulfilled, (state, action) => {
         state.quests = action.payload;
+        state.hasErrorQuests = false;
+        state.isQuestsLoading = false;
+      })
+      .addCase(fetchQuestsAction.pending, (state) => {
+        state.isQuestsLoading = true;
+      })
+      .addCase(fetchQuestsAction.rejected, (state) => {
+        state.hasErrorQuests = true;
+        state.isQuestsLoading = false;
       })
       .addCase(fetchOneQuestAction.fulfilled, (state, action) => {
         state.oneQuest = action.payload;

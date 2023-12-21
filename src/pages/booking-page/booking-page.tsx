@@ -5,7 +5,7 @@ import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOneQuestAction, fetchInfoBookingQuest } from '../../store/api-actions';
 import { dropQuest } from '../../store/quest-slice/quest-slice';
-import { getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
+import { getOneQuest, getStatusQuestsLoading } from '../../store/quest-slice/selectors';
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import Map from '../../components/map/map';
@@ -35,7 +35,7 @@ function BookingPage(): JSX.Element {
   }, [dispatch, id]);
 
   const quest = useAppSelector(getOneQuest);
-  const isLoading = useAppSelector(getStatusOneQuestLoading);
+  const isLoading = useAppSelector(getStatusQuestsLoading);
   const infoBookingQuests = useAppSelector(getInfoBookingQuest);
 
   if (infoBookingQuests.length === 0) {

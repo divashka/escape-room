@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { fetchOneQuestAction } from '../../store/api-actions';
 import { useParams, Link } from 'react-router-dom';
-
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -9,7 +8,6 @@ import { dropQuest } from '../../store/quest-slice/quest-slice';
 import { getErrorOneQuestStatus, getOneQuest, getStatusOneQuestLoading } from '../../store/quest-slice/selectors';
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
-import '../../../public/css/style.min.css';
 import { AppRoute } from '../../const/const';
 import { checkAuthorizationStatus } from '../../utils/utils';
 import { getAutorisationStatus } from '../../store/user-slice/selectors';
