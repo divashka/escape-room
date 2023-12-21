@@ -1,14 +1,15 @@
+
 import { Link } from 'react-router-dom';
-import { Quest } from '../../types/types';
+import { BookingQuest } from '../../types/types';
 import { AppRoute } from '../../const/const';
 
 type QuestCardProps = {
-  quest: Quest;
+  quest: BookingQuest;
 }
 
-function QuestCard({ quest }: QuestCardProps): JSX.Element {
+function QuestBookingCard({ quest }: QuestCardProps): JSX.Element {
 
-  const { id, title, previewImg, previewImgWebp, level, peopleMinMax } = quest;
+  const { id, title, previewImg, previewImgWebp, level, peopleMinMax } = quest.quest;
 
   return (
     <div className="quest-card">
@@ -40,9 +41,10 @@ function QuestCard({ quest }: QuestCardProps): JSX.Element {
             </svg>{level}
           </li>
         </ul>
+        <button className="btn btn--accent btn--secondary quest-card__btn" type="button">Отменить</button>
       </div>
     </div>
   );
 }
 
-export default QuestCard;
+export default QuestBookingCard;
