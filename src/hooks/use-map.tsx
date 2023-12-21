@@ -18,7 +18,7 @@ function useMap({ mapRef, location }: useMapProps): Map | null {
           lat: location.coords[0],
           lng: location.coords[1]
         },
-        zoom: 15
+        zoom: 10
       });
 
       const layer = new TileLayer(
