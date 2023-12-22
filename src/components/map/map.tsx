@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { infoBookingQuest } from '../../types/types';
+import { Location, infoBookingQuest } from '../../types/types';
 
 const URL_MARKER_DEFAULT = 'http://localhost:5173/markup/img/svg/pin-default.svg';
 const URL_MARKER_CURRENT = 'http://localhost:5173/markup/img/svg/pin-active.svg';
@@ -21,22 +21,31 @@ const currentCustomIcon = new Icon({
 });
 
 type MapProps = {
-  quests: infoBookingQuest[];
+  quests?: infoBookingQuest[];
   selectedQuest?: infoBookingQuest;
   onQuestMarkerClick?: (quest: infoBookingQuest) => void;
 }
+
+const locationDefault: Location = {
+  address: '',
+  coords: [59.968403, 30.316425],
+};
 
 function Map({ quests, selectedQuest, onQuestMarkerClick }: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
 
-  const location = quests[0].location;
+  let location: Location = locationDefault;
 
-  const map = useMap({ mapRef, location });
+  if (quests) {
+    location = quests[0].location;
 
-  if (!selectedQuest) {
-    selectedQuest = quests[0];
+    if (!selectedQuest) {
+      selectedQuest = quests[0];
+    }
   }
+
+  const map = useMap({ mapRef, location: location });
 
   useEffect(() => {
 
@@ -46,29 +55,41 @@ function Map({ quests, selectedQuest, onQuestMarkerClick }: MapProps): JSX.Eleme
 
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      quests.forEach((quest) => {
-        const marker = new Marker({
-          lat: quest.location.coords[0],
-          lng: quest.location.coords[1]
+
+      if (quests) {
+        quests.forEach((quest) => {
+          const marker = new Marker({
+            lat: quest.location.coords[0],
+            lng: quest.location.coords[1]
+          });
+
+          marker.addEventListener('click', () => handleMarkerClick(quest));
+
+          marker
+            .setIcon(
+              quest.id === selectedQuest?.id
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(markerLayer);
+
+        });
+      } else {
+        const markerDefault = new Marker({
+          lat: location.coords[0],
+          lng: location.coords[1]
         });
 
-        marker.addEventListener('click', () => handleMarkerClick(quest));
-
-        marker
-          .setIcon(
-            quest.id === selectedQuest?.id
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
+        markerDefault
+          .setIcon(defaultCustomIcon)
           .addTo(markerLayer);
-
-      });
+      }
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, location.coords, quests, selectedQuest?.id, onQuestMarkerClick]);
+  }, [map, location, quests, selectedQuest?.id, onQuestMarkerClick]);
 
   return (
     <div className="contacts__map">

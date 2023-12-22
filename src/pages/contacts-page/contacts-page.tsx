@@ -1,12 +1,6 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Map from '../../components/map/map';
-import { Location } from '../../types/types';
-
-const location: Location = {
-  address: '',
-  coords: [59.968403, 30.316425],
-};
 
 function ContactsPage(): JSX.Element {
   return (
@@ -56,7 +50,7 @@ function ContactsPage(): JSX.Element {
                 </dd>
               </div>
             </dl>
-            <Map location={location}></Map>
+            <Map></Map>
           </div>
         </div>
       </main>

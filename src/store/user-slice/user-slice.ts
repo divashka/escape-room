@@ -24,6 +24,9 @@ export const userReducer = createSlice({
       .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
+      .addCase(checkAuthAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.user = action.payload;
