@@ -38,6 +38,10 @@ function BookingPage(): JSX.Element {
   const isLoading = useAppSelector(getStatusQuestsLoading);
   const infoBookingQuests = useAppSelector(getInfoBookingQuest);
 
+  if (infoBookingQuests.length === 0) {
+    return <LoadingPage />;
+  }
+
   if (!quest && !isLoading) {
     return <LoadingPage />;
   }
