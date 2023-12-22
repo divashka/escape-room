@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Map from '../../components/map/map';
@@ -5,6 +6,9 @@ import Map from '../../components/map/map';
 function ContactsPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - Contacts'}</title>
+      </Helmet>
       <Header></Header>
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">

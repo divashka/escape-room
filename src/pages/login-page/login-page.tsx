@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { useEffect, } from 'react';
 import { AppRoute } from '../../const/const';
@@ -65,6 +66,9 @@ function LoginPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - Login'}</title>
+      </Helmet>
       <Header></Header>
 
       <main className="decorated-page login">

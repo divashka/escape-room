@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { fetchOneQuestAction } from '../../store/api-actions';
 import { useParams, Link } from 'react-router-dom';
@@ -51,6 +52,9 @@ function QuestPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{`Escape Room - ${title}`}</title>
+      </Helmet>
       <Header></Header>
 
       <main className="decorated-page quest-page">

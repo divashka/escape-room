@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
@@ -38,6 +39,9 @@ function MainPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - Home'}</title>
+      </Helmet>
       <Header></Header>
 
       <main className="page-content">

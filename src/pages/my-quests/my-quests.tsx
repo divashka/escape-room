@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
@@ -11,6 +12,9 @@ function MyQuestsPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - My quests'}</title>
+      </Helmet>
       <Header></Header>
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">

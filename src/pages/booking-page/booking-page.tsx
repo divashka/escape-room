@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
@@ -62,6 +63,9 @@ function BookingPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - Booking'}</title>
+      </Helmet>
       <Header></Header>
 
       <main className="page-content decorated-page">

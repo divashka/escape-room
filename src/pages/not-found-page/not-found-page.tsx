@@ -1,9 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 function NotFound(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>{'Escape Room - Not Found'}</title>
+      </Helmet>
       <Header></Header>
 
       <main className="decorated-page quest-page">

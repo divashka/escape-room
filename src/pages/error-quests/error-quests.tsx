@@ -8,7 +8,6 @@ function ErrorQuestsPage(): JSX.Element {
 
   return (
     <div className="wrapper">
-
       <main className="page-content">
         <div className="container">
           <div className="error__wrapper">
