@@ -76,11 +76,19 @@ export type QuestSlice = {
 export type UserSlice = {
   authorizationStatus: AuthorizationStatus;
   user: AuthData;
+  loginStatus: {
+    pending: boolean;
+    rejected: boolean;
+  };
 };
 
 export type ReservationSlice = {
   bookingQuests: BookingQuest[];
   successCancelReserved: boolean;
+  bookingStatus: {
+    pending: boolean;
+    rejected: boolean;
+  };
 };
 
 export type BookingSlice = {

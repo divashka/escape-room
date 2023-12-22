@@ -9,6 +9,10 @@ const initialState: UserSlice = {
     email: '',
     token: ''
   },
+  loginStatus: {
+    pending: false,
+    rejected: false,
+  }
 };
 
 export const userReducer = createSlice({
@@ -30,9 +34,16 @@ export const userReducer = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.user = action.payload;
+        state.loginStatus.rejected = false;
+        state.loginStatus.pending = false;
+      })
+      .addCase(loginAction.pending, (state) => {
+        state.loginStatus.pending = true;
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.loginStatus.pending = false;
+        state.loginStatus.rejected = true;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;

@@ -5,7 +5,11 @@ import { fetchBookingQuests, fetchBookQuest, fetchCancelReservedQuest } from '..
 
 const initialState: ReservationSlice = {
   bookingQuests: [],
-  successCancelReserved: false
+  successCancelReserved: false,
+  bookingStatus: {
+    pending: false,
+    rejected: false,
+  }
 };
 
 export const reservationReducer = createSlice({
@@ -23,6 +27,15 @@ export const reservationReducer = createSlice({
       })
       .addCase(fetchBookQuest.fulfilled, (state, action) => {
         state.bookingQuests.push(action.payload);
+        state.bookingStatus.rejected = false;
+        state.bookingStatus.pending = false;
+      })
+      .addCase(fetchBookQuest.pending, (state) => {
+        state.bookingStatus.pending = true;
+      })
+      .addCase(fetchBookQuest.rejected, (state) => {
+        state.bookingStatus.pending = false;
+        state.bookingStatus.rejected = true;
       })
       .addCase(fetchCancelReservedQuest.fulfilled, (state) => {
         state.successCancelReserved = true;

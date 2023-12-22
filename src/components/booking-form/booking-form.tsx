@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { QuestFull, infoBookingQuest } from '../../types/types';
 import { fetchBookQuest } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getBookingQuestStatus, getErrorBookingQuestStatus } from '../../store/reservation-slice/selectors';
+import ErrorSending from '../error-sending/error-sending';
 
 type BookingSlote = {
   time: string;
@@ -38,6 +40,10 @@ function BookingForm({ quest, quests, selectedQuest }: BookingFormProps): JSX.El
   const { today, tomorrow } = slots;
 
   const dispatch = useAppDispatch();
+
+  const isBookingQuest = useAppSelector(getBookingQuestStatus);
+
+  const hasError = useAppSelector(getErrorBookingQuestStatus);
 
   const {
     register,
@@ -219,7 +225,8 @@ function BookingForm({ quest, quests, selectedQuest }: BookingFormProps): JSX.El
           </span><span className="custom-checkbox__label">Со&nbsp;мной будут дети</span>
         </label>
       </fieldset>
-      <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={!isValid}>Забронировать</button>
+      <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={!isValid || isBookingQuest}>{isBookingQuest ? 'Бронируем...' : 'Забронировать'}</button>
+      {hasError && <ErrorSending></ErrorSending>}
       <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
         <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
         <span
