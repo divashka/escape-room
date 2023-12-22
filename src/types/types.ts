@@ -2,13 +2,9 @@ import { AuthorizationStatus } from '../const/const';
 import { store } from '../store/store';
 
 export type BookingDate = 'today' | 'tomorrow';
-
 export type State = ReturnType<typeof store.getState>;
-
 export type AppDispatch = typeof store.dispatch;
-
 export type LevelQuest = 'easy' | 'medium' | 'hard';
-
 export type TypeQuest = 'adventures' | 'horror' | 'mystic' | 'detective' | 'sci-fi';
 
 export type Location = {
@@ -83,16 +79,13 @@ export type UserSlice = {
 };
 
 export type ReservationSlice = {
+  infoBookingQuest: infoBookingQuest[];
   bookingQuests: BookingQuest[];
   successCancelReserved: boolean;
   bookingStatus: {
     pending: boolean;
     rejected: boolean;
   };
-};
-
-export type BookingSlice = {
-  infoBookingQuest: infoBookingQuest[];
 };
 
 export type AuthData = {

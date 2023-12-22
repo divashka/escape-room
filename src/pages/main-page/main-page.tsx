@@ -43,7 +43,6 @@ function MainPage(): JSX.Element {
         <title>{'Escape Room - Home'}</title>
       </Helmet>
       <Header></Header>
-
       <main className="page-content">
         <div className="container">
           <div className="page-content__title-wrapper">

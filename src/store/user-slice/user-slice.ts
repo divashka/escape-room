@@ -5,14 +5,8 @@ import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 const initialState: UserSlice = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: {
-    email: '',
-    token: ''
-  },
-  loginStatus: {
-    pending: false,
-    rejected: false,
-  }
+  user: { email: '', token: '' },
+  loginStatus: { pending: false, rejected: false, }
 };
 
 export const userReducer = createSlice({

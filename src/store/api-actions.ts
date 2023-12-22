@@ -94,7 +94,7 @@ export const fetchInfoBookingQuest = createAsyncThunk<infoBookingQuest[], string
   state: State;
   extra: AxiosInstance;
 }>(
-  'booking/fetchInfoBookingQuest',
+  'reservation/fetchInfoBookingQuest',
   async (id, { extra: api }) => {
     const { data } = await api.get<infoBookingQuest[]>(`${APIRoute.Quest}/${id}/booking`);
     return data;
@@ -106,7 +106,7 @@ export const fetchBookQuest = createAsyncThunk<BookingQuest, BookQuestData, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'booking/fetchBookQuest',
+  'reservation/fetchBookQuest',
   async (arg, { dispatch, extra: api }) => {
     const { data } = await api.post<BookingQuest>(`${APIRoute.Quest}/${arg.id}/booking`, arg.data);
     dispatch(redirectToRoute(AppRoute.MyQuests));

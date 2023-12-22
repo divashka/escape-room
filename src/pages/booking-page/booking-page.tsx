@@ -10,9 +10,9 @@ import { getOneQuest, getStatusQuestsLoading } from '../../store/quest-slice/sel
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import Map from '../../components/map/map';
-import { getInfoBookingQuest } from '../../store/booking-slice/selectors';
 import BookingForm from '../../components/booking-form/booking-form';
 import { infoBookingQuest } from '../../types/types';
+import { getInfoBookingQuest } from '../../store/reservation-slice/selectors';
 
 function BookingPage(): JSX.Element {
 

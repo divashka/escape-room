@@ -7,9 +7,7 @@ import NotBookingQuests from '../../components/not-booking-quests/not-booking-qu
 import QuestBookingCards from '../../components/quest-booking-cards/quest-booking-cards';
 
 function MyQuestsPage(): JSX.Element {
-
   const bookingQuests = useAppSelector(getBookingQuests);
-
   return (
     <div className="wrapper">
       <Helmet>

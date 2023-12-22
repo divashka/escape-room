@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReservationSlice, BookingQuest } from '../../types/types';
 import { SliceNameSpace } from '../../const/const';
-import { fetchBookingQuests, fetchBookQuest, fetchCancelReservedQuest } from '../api-actions';
+import { fetchBookingQuests, fetchBookQuest, fetchCancelReservedQuest, fetchInfoBookingQuest } from '../api-actions';
 
 const initialState: ReservationSlice = {
+  infoBookingQuest: [],
   bookingQuests: [],
   successCancelReserved: false,
   bookingStatus: {
@@ -42,6 +43,9 @@ export const reservationReducer = createSlice({
       })
       .addCase(fetchCancelReservedQuest.rejected, (state) => {
         state.successCancelReserved = false;
+      })
+      .addCase(fetchInfoBookingQuest.fulfilled, (state, action) => {
+        state.infoBookingQuest = action.payload;
       });
   }
 });

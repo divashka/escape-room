@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-
 import App from './components/app/app';
 import { store } from './store/store';
 import { fetchQuestsAction, checkAuthAction } from './store/api-actions';

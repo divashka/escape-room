@@ -50,11 +50,9 @@ function LoginPage(): JSX.Element {
   });
 
   useEffect(() => {
-
     if (isLogged) {
       navigate(from);
     }
-
   }, [isLogged, navigate, from]);
 
   function handleFormSubmit(data: FormInputs) {
@@ -70,7 +68,6 @@ function LoginPage(): JSX.Element {
         <title>{'Escape Room - Login'}</title>
       </Helmet>
       <Header></Header>
-
       <main className="decorated-page login">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>

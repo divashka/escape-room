@@ -38,10 +38,6 @@ function QuestPage(): JSX.Element {
     return <NotFound />;
   }
 
-  if (!quest && !isLoading) {
-    return <LoadingPage />;
-  }
-
   if (!quest && isLoading) {
     return <LoadingPage />;
   }
@@ -51,8 +47,6 @@ function QuestPage(): JSX.Element {
   }
 
   const { title, type, level, peopleMinMax, description, coverImg, coverImgWebp } = quest;
-
-  const renderedDescription = description.split('').slice(0, MAX_SYMBOLS_DESCRIPTION);
 
   return (
     <div className="wrapper">
@@ -94,7 +88,7 @@ function QuestPage(): JSX.Element {
                 </svg>{level}
               </li>
             </ul>
-            <p className="quest-page__description">{renderedDescription}
+            <p className="quest-page__description">{description.split('').slice(0, MAX_SYMBOLS_DESCRIPTION)}
             </p>
             <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Quest}${id}/booking`}>Забронировать</Link>
           </div>
