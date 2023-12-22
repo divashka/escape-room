@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { BookingQuest } from '../../types/types';
 import QuestBookingCard from '../quest-booking-card/quest-booking-card';
 
@@ -5,7 +6,7 @@ type QuestBookingCardsProps = {
   quests: BookingQuest[];
 }
 
-function QuestBookingCards({ quests }: QuestBookingCardsProps): JSX.Element {
+function QuestBookingCardsComponent({ quests }: QuestBookingCardsProps): JSX.Element {
   return (
     <div className="cards-grid">
       {
@@ -16,5 +17,7 @@ function QuestBookingCards({ quests }: QuestBookingCardsProps): JSX.Element {
     </div>
   );
 }
+
+const QuestBookingCards = memo(QuestBookingCardsComponent);
 
 export default QuestBookingCards;

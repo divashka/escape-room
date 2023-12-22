@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
@@ -6,7 +6,7 @@ import { checkAuthorizationStatus } from '../../utils/utils';
 import { getAutorisationStatus } from '../../store/user-slice/selectors';
 import { logoutAction } from '../../store/api-actions';
 
-function Header(): JSX.Element {
+function HeaderComponent(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -51,5 +51,7 @@ function Header(): JSX.Element {
     </header>
   );
 }
+
+const Header = memo(HeaderComponent);
 
 export default Header;

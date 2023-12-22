@@ -1,6 +1,6 @@
 
 import 'leaflet/dist/leaflet.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { Location, infoBookingQuest } from '../../types/types';
@@ -31,7 +31,7 @@ const locationDefault: Location = {
   coords: [59.968403, 30.316425],
 };
 
-function Map({ quests, selectedQuest, onQuestMarkerClick }: MapProps): JSX.Element {
+function MapComponent({ quests, selectedQuest, onQuestMarkerClick }: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
 
@@ -99,5 +99,7 @@ function Map({ quests, selectedQuest, onQuestMarkerClick }: MapProps): JSX.Eleme
     </div>
   );
 }
+
+const Map = memo(MapComponent);
 
 export default Map;

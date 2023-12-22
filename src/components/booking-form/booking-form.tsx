@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, memo } from 'react';
 import { QuestFull, infoBookingQuest } from '../../types/types';
 import { fetchBookQuest } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -29,7 +29,7 @@ type FormInputs = {
   children: boolean;
 }
 
-function BookingForm({ quest, quests, selectedQuest }: BookingFormProps): JSX.Element {
+function BookingFormComponent({ quest, quests, selectedQuest }: BookingFormProps): JSX.Element {
 
   if (!selectedQuest) {
     selectedQuest = quests[0];
@@ -245,5 +245,7 @@ function BookingForm({ quest, quests, selectedQuest }: BookingFormProps): JSX.El
     </form>
   );
 }
+
+const BookingForm = memo(BookingFormComponent);
 
 export default BookingForm;

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
@@ -39,6 +39,10 @@ function BookingPage(): JSX.Element {
   const isLoading = useAppSelector(getStatusQuestsLoading);
   const infoBookingQuests = useAppSelector(getInfoBookingQuest);
 
+  const handleQuestMarkerClick = useCallback((currentQuest: infoBookingQuest) => {
+    setSelectedQuest(currentQuest);
+  }, []);
+
   if (infoBookingQuests.length === 0) {
     return <LoadingPage />;
   }
@@ -56,10 +60,6 @@ function BookingPage(): JSX.Element {
   }
 
   const { title, coverImg, coverImgWebp } = quest;
-
-  function handleQuestMarkerClick(currentQuest: infoBookingQuest) {
-    setSelectedQuest(currentQuest);
-  }
 
   return (
     <div className="wrapper">
