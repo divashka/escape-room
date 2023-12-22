@@ -2,14 +2,31 @@
 import { Link } from 'react-router-dom';
 import { BookingQuest } from '../../types/types';
 import { AppRoute } from '../../const/const';
+import { fetchCancelReservedQuest } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { cancelReservation } from '../../store/reservation-slice/reservation-slice';
 
 type QuestCardProps = {
   quest: BookingQuest;
 }
 
+const BookingDate = {
+  tomorrow: 'завтра',
+  today: 'сегодня',
+} as const;
+
 function QuestBookingCard({ quest }: QuestCardProps): JSX.Element {
 
-  const { id, title, previewImg, previewImgWebp, level, peopleMinMax } = quest.quest;
+  const dispatch = useAppDispatch();
+
+  const { id, title, previewImg, previewImgWebp, level } = quest.quest;
+
+  const { id: BookingQuestId, time, date, location, peopleCount } = quest;
+
+  function handleCancelButtonClick() {
+    dispatch(cancelReservation(BookingQuestId));
+    dispatch(fetchCancelReservedQuest(BookingQuestId));
+  }
 
   return (
     <div className="quest-card">
@@ -28,12 +45,15 @@ function QuestBookingCard({ quest }: QuestCardProps): JSX.Element {
       <div className="quest-card__content">
         <div className="quest-card__info-wrapper">
           <Link className="quest-card__link" to={`${AppRoute.Quest}${id}`}>{title}</Link>
+          <span className="quest-card__info">
+            [{BookingDate[date]},&nbsp;{time}. {location.address}]
+          </span>
         </div>
         <ul className="tags quest-card__tags">
           <li className="tags__item">
             <svg width="11" height="14" aria-hidden="true">
               <use xlinkHref="#icon-person"></use>
-            </svg>{peopleMinMax[0]}&ndash;{peopleMinMax[1]}&nbsp;чел
+            </svg>{peopleCount}&nbsp;чел
           </li>
           <li className="tags__item">
             <svg width="14" height="14" aria-hidden="true">
@@ -41,9 +61,15 @@ function QuestBookingCard({ quest }: QuestCardProps): JSX.Element {
             </svg>{level}
           </li>
         </ul>
-        <button className="btn btn--accent btn--secondary quest-card__btn" type="button">Отменить</button>
+        <button
+          className="btn btn--accent btn--secondary quest-card__btn"
+          type="button"
+          onClick={handleCancelButtonClick}
+        >
+          Отменить
+        </button>
       </div>
-    </div>
+    </div >
   );
 }
 
