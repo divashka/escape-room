@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { AppRoute } from '../../const/const';
@@ -17,7 +17,8 @@ import { fetchBookingQuests } from '../../store/api-actions';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import { getErrorQuestsStatus, getStatusQuestsLoading } from '../../store/quest-slice/selectors';
 import ErrorQuestsPage from '../../pages/error-quests/error-quests';
-
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
 
@@ -49,7 +50,7 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -61,7 +62,13 @@ function App(): JSX.Element {
           />
           <Route
             path={`${AppRoute.Quest}:id/booking`}
-            element={<BookingPage />}
+            element={
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
+                <BookingPage />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoute.Contacts}
@@ -86,7 +93,7 @@ function App(): JSX.Element {
             element={<NotFound />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

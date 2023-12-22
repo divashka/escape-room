@@ -80,6 +80,7 @@ export type UserSlice = {
 
 export type ReservationSlice = {
   bookingQuests: BookingQuest[];
+  successCancelReserved: boolean;
 };
 
 export type BookingSlice = {

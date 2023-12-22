@@ -1,6 +1,6 @@
 import { FormEvent, useState, FocusEvent, ChangeEvent, useEffect, } from 'react';
 import { AppRoute } from '../../const/const';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
@@ -8,9 +8,21 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkAuthorizationStatus } from '../../utils/utils';
 import { getAutorisationStatus } from '../../store/user-slice/selectors';
 
+type LocationState = {
+  from: {
+    pathname: string;
+  };
+}
+
 function LoginPage(): JSX.Element {
 
+  const navigate = useNavigate();
+
   const authorizationStatus = useAppSelector(getAutorisationStatus);
+
+  const location = useLocation();
+
+  const { from } = location.state as LocationState || { from: { pathname: AppRoute.Root } };
 
   const isLogged = checkAuthorizationStatus(authorizationStatus);
 
@@ -30,11 +42,12 @@ function LoginPage(): JSX.Element {
     } else {
       setFormValid(true);
     }
-  }, [emailError, passwordError]);
 
-  if (isLogged) {
-    return <Navigate to={AppRoute.Root}></Navigate>;
-  }
+    if (isLogged) {
+      navigate(from);
+    }
+
+  }, [emailError, passwordError, isLogged, navigate, from]);
 
   function handleBlur(evt: FocusEvent<HTMLInputElement>) {
     switch (evt.target.name) {

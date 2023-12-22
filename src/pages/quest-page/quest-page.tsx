@@ -9,17 +9,11 @@ import { getErrorOneQuestStatus, getOneQuest, getStatusOneQuestLoading } from '.
 import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import { AppRoute } from '../../const/const';
-import { checkAuthorizationStatus } from '../../utils/utils';
-import { getAutorisationStatus } from '../../store/user-slice/selectors';
 
 function QuestPage(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-
-  const authorizationStatus = useAppSelector(getAutorisationStatus);
-
-  const isLogged = checkAuthorizationStatus(authorizationStatus);
 
   const quest = useAppSelector(getOneQuest);
   const isLoading = useAppSelector(getStatusOneQuestLoading);
@@ -54,12 +48,6 @@ function QuestPage(): JSX.Element {
   }
 
   const { title, type, level, peopleMinMax, description, coverImg, coverImgWebp } = quest;
-
-  let bookingLink = `${AppRoute.Login}`;
-
-  if (isLogged) {
-    bookingLink = `${AppRoute.Quest}${id}/booking`;
-  }
 
   return (
     <div className="wrapper">
@@ -100,7 +88,7 @@ function QuestPage(): JSX.Element {
             </ul>
             <p className="quest-page__description">{description}
             </p>
-            <Link className="btn btn--accent btn--cta quest-page__btn" to={bookingLink}>Забронировать</Link>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Quest}${id}/booking`}>Забронировать</Link>
           </div>
         </div>
       </main>

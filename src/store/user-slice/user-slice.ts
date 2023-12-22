@@ -8,7 +8,7 @@ const initialState: UserSlice = {
   user: {
     email: '',
     token: ''
-  }
+  },
 };
 
 export const userReducer = createSlice({
@@ -30,6 +30,9 @@ export const userReducer = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.user = action.payload;
+      })
+      .addCase(loginAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
