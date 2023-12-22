@@ -119,7 +119,7 @@ function LoginPage(): JSX.Element {
                       {...register('password', {
                         required: 'Укажите пароль',
                         pattern: {
-                          value: /(?=^.{3,15}$)(?=.*[a-z])[0-9a-z]{3,}/,
+                          value: /(?=^.{3,15}$)(?=.*[0-9])(?=.*[a-z])[0-9a-z]{2,}/,
                           message: 'Введите корректный пароль'
                         }
                       })}

@@ -11,6 +11,8 @@ import NotFound from '../not-found-page/not-found-page';
 import LoadingPage from '../loading-page/loading-page';
 import { AppRoute } from '../../const/const';
 
+const MAX_SYMBOLS_DESCRIPTION = 300;
+
 function QuestPage(): JSX.Element {
 
   const { id } = useParams();
@@ -49,6 +51,8 @@ function QuestPage(): JSX.Element {
   }
 
   const { title, type, level, peopleMinMax, description, coverImg, coverImgWebp } = quest;
+
+  const renderedDescription = description.split('').slice(0, MAX_SYMBOLS_DESCRIPTION);
 
   return (
     <div className="wrapper">
@@ -90,7 +94,7 @@ function QuestPage(): JSX.Element {
                 </svg>{level}
               </li>
             </ul>
-            <p className="quest-page__description">{description}
+            <p className="quest-page__description">{renderedDescription}
             </p>
             <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Quest}${id}/booking`}>Забронировать</Link>
           </div>

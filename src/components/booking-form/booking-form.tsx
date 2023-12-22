@@ -102,7 +102,7 @@ function BookingFormComponent({ quest, quests, selectedQuest }: BookingFormProps
     }));
   }
 
-  const regexPeopleCount = `[${quest.peopleMinMax[0]}-${quest.peopleMinMax[1]}]`;
+  const regexPeopleCount = `^[${quest.peopleMinMax[0]}-${quest.peopleMinMax[1]}]$|[1][0]`;
 
   return (
     <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post"
@@ -202,7 +202,7 @@ function BookingFormComponent({ quest, quests, selectedQuest }: BookingFormProps
             {...register('person', {
               required: 'Укажите количество участников',
               pattern: {
-                value: new RegExp(`(?=^.{1}$)${regexPeopleCount}`),
+                value: new RegExp(regexPeopleCount),
                 message: `Допустимое количество участников от ${quest.peopleMinMax[0]} до ${quest.peopleMinMax[1]}`
               }
             })}
