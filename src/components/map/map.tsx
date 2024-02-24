@@ -5,8 +5,8 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { Location, infoBookingQuest } from '../../types/types';
 
-const URL_MARKER_DEFAULT = 'http://localhost:5173/markup/img/svg/pin-default.svg';
-const URL_MARKER_CURRENT = 'http://localhost:5173/markup/img/svg/pin-active.svg';
+const URL_MARKER_DEFAULT = './markup/img/svg/pin-default.svg';
+const URL_MARKER_CURRENT = './markup/img/svg/pin-active.svg';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
