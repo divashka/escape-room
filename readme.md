@@ -1,29 +1,20 @@
-Учебный проект грейдирования Профессии «React-разработчик» Escape Room
+# Страшные квесты
 
-Потрачено часов - 32 часа, 40 мин
+Pet-проект, посвященный сервису бронирования квестов.
 
-## Структура проекта
+Проект выполнен с помощью фреймворка React и TypeScript;
 
-В файле VALIDATION пример работы с библиотекой `React Hook Form` необходимой для валидации в проекте
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-### markup
+Что реализовано в проекте?
 
-В директории находится вёрстка проекта: примеры страниц, ui-kit и карта сайта (`sitemap.html`). Начинать знакомство с проектом лучше с карты.
+<ul>
+ <li>авторизация на сайте</li>
+ <li>интерактивная карта</li>
+ <li>форма бронирования</li>
+ <li>фильтрация каталога квестов</li>
+</ul>
 
-### public
+## :gem: Инструменты
 
-Директория для размещения статичных ресурсов (шрифты, стили, изображения и так далее).
-
-### src
-
-В директории размещается исходный код проекта: компоненты, файлы с тестами, модули и так далее. Структура директории `src` может быть произвольной.
-
-## Алгоритм работы над проектом
-
-1. Установите зависимости, выполнив команду `npm install`.
-
-2. Проверьте работу приложения, выполнив команду `npm start`.
-
-3. Перейдите по адресу, указанному в терминале (скорее всего, это будет `http://localhost:5173/`). Если сборка прошла успешно, то на странице вашего приложения вы увидите `Hello, world!`.
-
-4. Запрограммируйте проект.
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
